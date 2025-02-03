@@ -6,7 +6,7 @@ import com.springboot.form.app.models.domain.Role;
 
 public interface RoleService {
 	
-	public List<Role> listar();
-	public Role obtenerPorId(Integer id);
+	List<Role> listar();
+	Role obtenerPorId(Integer id);
 
 }
