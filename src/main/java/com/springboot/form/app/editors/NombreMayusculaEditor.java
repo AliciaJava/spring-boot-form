@@ -1,7 +1,10 @@
 package com.springboot.form.app.editors;
 
+import org.springframework.stereotype.Component;
+
 import java.beans.PropertyEditorSupport;
 
+@Component
 public class NombreMayusculaEditor extends PropertyEditorSupport {
 
 	@Override
@@ -9,7 +12,5 @@ public class NombreMayusculaEditor extends PropertyEditorSupport {
 		
 		setValue(text.toUpperCase().trim());
 	}
-	
-	
 
 }

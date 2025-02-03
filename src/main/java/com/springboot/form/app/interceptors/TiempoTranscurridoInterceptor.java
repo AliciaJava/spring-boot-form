@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TiempoTranscurridoInterceptor implements HandlerInterceptor{
 	
 	private static final Logger logger = LoggerFactory.getLogger(TiempoTranscurridoInterceptor.class);
+	private final Random random = new Random();
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -27,16 +28,15 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor{
 		
 		if(handler instanceof HandlerMethod) {
 			HandlerMethod metodo = (HandlerMethod) handler;
-			logger.info("es un método del controlador: " + metodo.getMethod().getName());
+			logger.info("es un método del controlador: {}", metodo.getMethod().getName());
 		}
 
 		logger.info("TiempoTranscurridoInterceptor: preHandle() entrando ...");
-		logger.info("Interceptando: " + handler);
+		logger.info("Interceptando: {}", handler);
 		long tiempoInicio = System.currentTimeMillis();
 		request.setAttribute("tiempoInicio", tiempoInicio);
 		
-		Random random = new Random();
-		Integer demora = random.nextInt(100);
+		int demora = random.nextInt(100);
 		Thread.sleep(demora);
 		
 		return true;
@@ -44,7 +44,7 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor{
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+			ModelAndView modelAndView) {
 		
 		if(request.getMethod().equalsIgnoreCase("post")) {
 			return;
@@ -57,10 +57,9 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor{
 		if(handler instanceof HandlerMethod && modelAndView != null) {
 			modelAndView.addObject("tiempoTranscurrido", tiempoTranscurrido);
 		}
-		logger.info("Tiempo Transcurrido: " + tiempoTranscurrido + " milisegundos");
+		logger.info("Tiempo Transcurrido: {} milisegundos", tiempoTranscurrido);
 		logger.info("TiempoTranscurridoInterceptor: postHandle() saliendo ...");
 
 	}
 
-	
 }

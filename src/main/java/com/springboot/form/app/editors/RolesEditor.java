@@ -1,17 +1,16 @@
 package com.springboot.form.app.editors;
 
-import java.beans.PropertyEditorSupport;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.springboot.form.app.services.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import com.springboot.form.app.services.RoleService;
+import java.beans.PropertyEditorSupport;
 
 @Component
+@RequiredArgsConstructor
 public class RolesEditor extends PropertyEditorSupport{
 
-	@Autowired
-	private RoleService service;
+	private final RoleService service;
 	
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
